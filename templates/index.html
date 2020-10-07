@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <title>Price Suggester</title>
+</head>
+
+<body>
+
+    <div>
+        <form action="{{ url_for('predict')}}" method="post">
+            <div>
+                <h2>Used Car Price Suggester
+                </h2>
+            </div>
+
+            <div class="form-group wrap">
+                <label>Year</label>
+                <input class="form-control" name="Year" type="year" aria-placeholder="What year was the car purchased in?" placeholder="What year was the car purchased in?">
+            </div>
+
+
+            <div class="form-group wrap">
+                <label>What was the showroom price?(in lakhs)</label>
+                <input class="form-control" name="Present_Price" required="required" aria-placeholder="What was the price of the brand new car?" placeholder="What was the price of the brand new car?">
+            </div>
+
+            <div class="form-group wrap">
+                <label>How many Kilometers has it been driven for?</label>
+                <input class="form-control" name="Kms_Driven" required="required" aria-placeholder="What's the odometer reading?" placeholder="What's the odometer reading?">
+
+            </div>
+
+            <div class="form-group wrap">
+                <label>How many owners has the car had?</label>
+                <input class="form-control" name="Owner" required="required" aria-placeholder="1 or 2 or 3?" placeholder="1 or 2 or 3?">
+
+            </div>
+
+            <div class="form-group wrap">
+                <label>What is the fuel type?</label>
+                <select name="Fuel_Type_Petrol" class="custom-select drop" required="required">
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Diesel">CNG</option>
+                </select>
+            </div>
+
+            <div class="form-group wrap">
+                <label>Are you a Dealer or an Individual</label>
+                <select name="Seller_Type_Individual" class="custom-select drop" required="required">
+                    <option value="Dealer">Dealer</option>
+                    <option value="Individual">Individual</option>
+                </select>
+            </div>
+
+            <div class="form-group wrap">
+                <label>Transmission type</label>
+                <br>
+                <select name="Transmission_Mannual" class="custom-select drop" required="required">
+                    <option value="Mannual">Manual Car</option>
+                    <option value="Automatic">Automatic Car</option>
+                </select>
+            </div>
+
+            <div class="wrap">
+                <button id="suggest" class="btn btn-light" type="submit ">Suggest Price</button>
+            </div>
+
+
+    </div>
+    </form>
+
+    <div class="wrap">
+        <h3 id="result">{{ prediction_text }}
+        </h3>
+    </div>
+
+
+
+
+    <style>
+        body {
+            text-align: center;
+            background: #0b0c10;
+        }
+        
+        .wrap {
+            width: 45%;
+            padding-left: 100px;
+            padding-right: 100px;
+            margin: auto;
+            margin-bottom: 10px;
+        }
+        
+        .drop:hover {
+            color: #1f2f33
+        }
+        
+        #suggest {
+            font-weight: bold;
+            font-family: 'Roboto';
+            font-size: 20px;
+        }
+        
+        #suggest:hover {
+            color: #1f2f33;
+        }
+        
+        #result {
+            margin: 5px;
+            color: #66fcf1;
+            font-weight: 300;
+            font-family: 'Roboto';
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        h2 {
+            padding-top: 10px;
+            margin-bottom: 10px;
+            font-family: Brush Script MT, cursive;
+            font-size: 52px;
+            font-style: normal;
+            color: #66fcf1;
+        }
+        
+        label {
+            font-family: 'Roboto';
+            font-size: 20px;
+            color: white;
+            margin-bottom: 5px;
+        }
+    </style>
+</body>
+
+</html>
