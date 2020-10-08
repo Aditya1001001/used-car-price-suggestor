@@ -6,79 +6,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Damion&display=swap" rel="stylesheet">
     <title>Price Suggester</title>
 </head>
 
 <body>
 
-    <div>
-        <form action="{{ url_for('predict')}}" method="post">
-            <div>
-                <h2>Used Car Price Suggester
-                </h2>
+    <div class="row">
+        <div class="col-12 col-md-6" id="name-des">
+            <div id="contain">
+                <div id="name">
+                    <h2>Used Car
+                    </h2>
+                    <h2>Price Suggester</h2>
+                </div>
+                <div id="description">
+                    <a>This web app uses a Random Forrest Regressor model to suggest a suitable price for used cars.
+                    The model is trained on CarDekho dataset available <a href="https://www.kaggle.com/nehalbirla/vehicle-dataset-from-cardekho" target="_blank">here</a> on Kaggle.You can find the code behind this in <a href="https://github.com/Aditya1001001/used-car-price-suggestor"
+                        target="_blank">this GitHub repository</a>.
+                    </a>
+                </div>
             </div>
 
-            <div class="form-group wrap">
-                <label>Year</label>
-                <input class="form-control" name="Year" type="year" aria-placeholder="What year was the car purchased in?" placeholder="What year was the car purchased in?">
-            </div>
+        </div>
+
+        <div class="col-12 col-md-6" id="form">
+            <form action="{{ url_for('predict')}}" method="post">
 
 
-            <div class="form-group wrap">
-                <label>What was the showroom price?(in lakhs)</label>
-                <input class="form-control" name="Present_Price" required="required" aria-placeholder="What was the price of the brand new car?" placeholder="What was the price of the brand new car?">
-            </div>
+                <div class="form-group wrap label">
+                    <label>Year</label>
+                    <input class="form-control" name="Year" type="year" aria-placeholder="What year was the car purchased in?" placeholder="What year was the car purchased in?">
+                </div>
 
-            <div class="form-group wrap">
-                <label>How many Kilometers has it been driven for?</label>
-                <input class="form-control" name="Kms_Driven" required="required" aria-placeholder="What's the odometer reading?" placeholder="What's the odometer reading?">
 
-            </div>
+                <div class="form-group wrap label">
+                    <label>What was the showroom price?(in lakhs)</label>
+                    <input class="form-control" name="Present_Price" required="required" aria-placeholder="What was the price of the brand new car?" placeholder="What was the price of the brand new car?">
+                </div>
 
-            <div class="form-group wrap">
-                <label>How many owners has the car had?</label>
-                <input class="form-control" name="Owner" required="required" aria-placeholder="1 or 2 or 3?" placeholder="1 or 2 or 3?">
+                <div class="form-group wrap label">
+                    <label>How many Kilometers has it been driven for?</label>
+                    <input class="form-control" name="Kms_Driven" required="required" aria-placeholder="What's the odometer reading?" placeholder="What's the odometer reading?">
 
-            </div>
+                </div>
 
-            <div class="form-group wrap">
-                <label>What is the fuel type?</label>
-                <select name="Fuel_Type_Petrol" class="custom-select drop" required="required">
-                    <option value="Petrol">Petrol</option>
-                    <option value="Diesel">Diesel</option>
-                    <option value="Diesel">CNG</option>
-                </select>
-            </div>
+                <div class="form-group wrap label">
+                    <label>How many owners has the car had?</label>
+                    <input class="form-control" name="Owner" required="required" aria-placeholder="1 or 2 or 3?" placeholder="1 or 2 or 3?">
 
-            <div class="form-group wrap">
-                <label>Are you a Dealer or an Individual</label>
-                <select name="Seller_Type_Individual" class="custom-select drop" required="required">
-                    <option value="Dealer">Dealer</option>
-                    <option value="Individual">Individual</option>
-                </select>
-            </div>
+                </div>
 
-            <div class="form-group wrap">
-                <label>Transmission type</label>
-                <br>
-                <select name="Transmission_Mannual" class="custom-select drop" required="required">
-                    <option value="Mannual">Manual Car</option>
-                    <option value="Automatic">Automatic Car</option>
-                </select>
-            </div>
+                <div class="form-group wrap label">
+                    <label>What is the fuel type?</label>
+                    <select name="Fuel_Type_Petrol" class="custom-select drop" required="required">
+                        <option value="Petrol">Petrol</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Diesel">CNG</option>
+                    </select>
+                </div>
+
+                <div class="form-group wrap label">
+                    <label>Are you a Dealer or an Individual</label>
+                    <select name="Seller_Type_Individual" class="custom-select drop" required="required">
+                        <option value="Dealer">Dealer</option>
+                        <option value="Individual">Individual</option>
+                    </select>
+                </div>
+
+                <div class="form-group wrap label">
+                    <label>Transmission type</label>
+                    <br>
+                    <select name="Transmission_Mannual" class="custom-select drop" required="required">
+                        <option value="Mannual">Manual Car</option>
+                        <option value="Automatic">Automatic Car</option>
+                    </select>
+                </div>
+
+                <div class="wrap">
+                    <button id="suggest" class="btn btn-light" type="submit ">Suggest Price</button>
+                </div>
+            </form>
 
             <div class="wrap">
-                <button id="suggest" class="btn btn-light" type="submit ">Suggest Price</button>
+                <h3 id="result">{{ prediction_text }}
+                </h3>
             </div>
-
-
+        </div>
     </div>
-    </form>
 
-    <div class="wrap">
-        <h3 id="result">{{ prediction_text }}
-        </h3>
-    </div>
 
 
 
@@ -86,25 +102,71 @@
     <style>
         body {
             text-align: center;
-            background: #0b0c10;
         }
         
         .wrap {
-            width: 45%;
-            padding-left: 100px;
-            padding-right: 100px;
+            width: 70%;
+            padding-left: 10px;
+            padding-right: 10px;
             margin: auto;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .label {
+            text-align: left;
+        }
+        
+        #contain {
+            background-color: rgba(66, 66, 66, 0.13);
+            position: absolute;
+            height: 100%;
+        }
+        
+        .row {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
         }
         
         .drop:hover {
             color: #1f2f33
         }
         
+        #name {
+            margin: auto;
+            width: 50%;
+            padding-top: 25%;
+            margin-bottom: 25px;
+        }
+        
+        #description {
+            background-color: rgba(66, 66, 66, 0.13);
+            margin-top: 25px;
+            width: 70%;
+            margin: auto;
+            font-family: 'Roboto';
+            font-size: 20px;
+            border-radius: 5px;
+        }
+        
+        #name-des {
+            display: inline-block;
+            background-color: #ffffff;
+        }
+        
+        #form {
+            display: inline-block;
+            padding-top: 20px;
+            background-color: #1a1a1a;
+        }
+        
         #suggest {
             font-weight: bold;
             font-family: 'Roboto';
             font-size: 20px;
+            margin-top: 15px;
         }
         
         #suggest:hover {
@@ -113,27 +175,32 @@
         
         #result {
             margin: 5px;
-            color: #66fcf1;
+            color: #ffffff;
             font-weight: 300;
             font-family: 'Roboto';
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 900;
+            margin-top: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: rgba(114, 114, 114, 0.137);
+            border-radius: 5px;
         }
         
         h2 {
-            padding-top: 10px;
-            margin-bottom: 10px;
-            font-family: Brush Script MT, cursive;
-            font-size: 52px;
+            font: 400 100px/1.2 'Damion', cursive;
+            color: #000;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2), 4px 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 48px;
             font-style: normal;
-            color: #66fcf1;
         }
         
         label {
             font-family: 'Roboto';
             font-size: 20px;
-            color: white;
+            color: #ffffff;
             margin-bottom: 5px;
+            text-align: left;
         }
     </style>
 </body>
